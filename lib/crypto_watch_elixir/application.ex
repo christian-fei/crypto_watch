@@ -11,7 +11,7 @@ defmodule CryptoWatchElixir.Application do
       # Start the Telemetry supervisor
       CryptoWatchElixirWeb.Telemetry,
       # Start the PubSub system
-      {Phoenix.PubSub, name: CryptoWatchElixir.PubSub},
+      {Phoenix.PubSub, [name: CryptoWatchElixir.PubSub, adapter: Phoenix.PubSub.PG2]},
       # Start the Endpoint (http/https)
       CryptoWatchElixirWeb.Endpoint
       # Start a worker by calling: CryptoWatchElixir.Worker.start_link(arg)

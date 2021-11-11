@@ -42,4 +42,8 @@ defmodule CryptoWatchElixirWeb.Endpoint do
   plug Plug.Head
   plug Plug.Session, @session_options
   plug CryptoWatchElixirWeb.Router
+
+  socket "/socket", CryptoWatchElixirWeb.DataSocket,
+    websocket: true,
+    longpoll: false
 end
