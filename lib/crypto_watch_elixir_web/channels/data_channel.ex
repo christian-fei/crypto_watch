@@ -6,18 +6,35 @@ defmodule CryptoWatchElixirWeb.DataChannel do
     {:ok, socket}
   end
 
-  def send_to_channel(data) do
+  def join("data:level2", _payload, socket) do
+    {:ok, socket}
+  end
+
+  def broadcast_match(data) do
     Phoenix.PubSub.broadcast(
       CryptoWatchElixir.PubSub,
       "data:matches",
-      %{data: data}
+      %{match: data}
+    )
+  end
+
+  def broadcast_level2(data) do
+    Phoenix.PubSub.broadcast(
+      CryptoWatchElixir.PubSub,
+      "data:level2",
+      %{level2: data}
     )
   end
 
   @impl true
 
-  def handle_info(%{data: data}, socket) do
-    push(socket, "match", %{data: data})
+  def handle_info(%{match: data}, socket) do
+    push(socket, "data", %{data: data})
+    {:noreply, socket}
+  end
+
+  def handle_info(%{level2: data}, socket) do
+    push(socket, "data", %{data: data})
     {:noreply, socket}
   end
 

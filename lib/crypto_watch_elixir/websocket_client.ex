@@ -5,7 +5,8 @@ defmodule CryptoWatchElixir.WebsocketClient do
 
   def start_link(products \\ ["BTC-EUR"]) do
     {:ok, pid} = WebSockex.start_link(@endpoint, __MODULE__, :no_state)
-    subscribe_to(pid, products)
+    subscribe_matches(pid, products)
+    subscribe_level2(pid, products)
     {:ok, pid}
   end
 
@@ -17,10 +18,14 @@ defmodule CryptoWatchElixir.WebsocketClient do
 
   @impl WebSockex
   def handle_frame(_frame = {:text, msg}, state) do
-    msg
-    |> Jason.decode!()
-    |> IO.inspect()
-    |> CryptoWatchElixirWeb.DataChannel.send_to_channel()
+    data =
+      msg
+      |> Jason.decode!(keys: :atoms)
+
+    # |> IO.inspect()
+
+    if data[:type] == "match", do: CryptoWatchElixirWeb.DataChannel.broadcast_match(data)
+    if data[:type] == "l2update", do: CryptoWatchElixirWeb.DataChannel.broadcast_level2(data)
 
     {:ok, state}
   end
@@ -31,12 +36,24 @@ defmodule CryptoWatchElixir.WebsocketClient do
     {:reconnect, state}
   end
 
-  def subscribe_to(pid, products \\ []) do
+  def subscribe_matches(pid, products \\ []) do
     subscription_msg =
       %{
         type: "subscribe",
         product_ids: products,
         channels: ["matches"]
+      }
+      |> Jason.encode!()
+
+    WebSockex.send_frame(pid, {:text, subscription_msg})
+  end
+
+  def subscribe_level2(pid, products \\ []) do
+    subscription_msg =
+      %{
+        type: "subscribe",
+        product_ids: products,
+        channels: ["level2"]
       }
       |> Jason.encode!()
 

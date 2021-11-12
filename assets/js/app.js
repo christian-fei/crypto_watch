@@ -47,25 +47,44 @@ import socket from "./data_socket.js"
 
 const MAX_VISIBLE_MATCHES = 20
 const $matches = document.querySelector('.matches')
+const $level2s = document.querySelector('.level2')
 
-let channel = socket.channel("data:matches", {})
-channel.join()
-  .receive("ok", resp => { console.log("Joined successfully", resp) })
-  .receive("error", resp => { console.log("Unable to join", resp) })
+let matchesChannel = socket.channel("data:matches", {})
+matchesChannel.join()
+  .receive("ok", resp => { console.log("matches channel joined successfully", resp) })
+  .receive("error", resp => { console.log("Unable to join matches channel", resp) })
+let level2Channel = socket.channel("data:level2", {})
+level2Channel.join()
+  .receive("ok", resp => { console.log("level2 channel joined successfully", resp) })
+  .receive("error", resp => { console.log("Unable to join level2 channel", resp) })
 
-channel.on("match", (message) => {
-  console.log('received data', message.data)
+level2Channel.on("data", (message) => {
+  // console.log('level2', message.data)
+  const { data } = message
+  const $level2 = document.createElement('div')
+  $level2.innerHTML = `
+    <div>${data.changes[0][0]} ${data.changes[0][1]} ${data.changes[0][2]}</div> <div>${data.time}</div>
+  `
+  $level2s.prepend($level2)
+
+  if ($level2s.childNodes.length > 10) {
+    const last = $level2s.childNodes[$level2s.childNodes.length - 1]
+    last.parentNode.removeChild(last)
+  }
+
+})
+matchesChannel.on("data", (message) => {
+  // console.log('match', message.data)
 
   const { data } = message
-  const match = document.createElement('div')
-  match.innerHTML = `
+  const $match = document.createElement('div')
+  $match.innerHTML = `
     <div>${data.side}</div> <div>${data.size}</div> <div>${data.price}</div>
   `
 
-  match.classList.add(data.side)
-  match.classList.add('match')
-  $matches.prepend(match)
-  console.log($matches.childNodes.length)
+  $match.classList.add(data.side)
+  $match.classList.add('match')
+  $matches.prepend($match)
 
   if ($matches.childNodes.length > MAX_VISIBLE_MATCHES) {
     const last = $matches.childNodes[$matches.childNodes.length - 1]

@@ -30,3 +30,10 @@ body {
   border-left: 5px solid green;
   padding-left: 5px;
 }
+
+.flex {
+  display: flex;
+}
+.flex > * {
+  flex: 1;
+}
