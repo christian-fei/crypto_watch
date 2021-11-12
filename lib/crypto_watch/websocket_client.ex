@@ -33,7 +33,8 @@ defmodule CryptoWatch.WebsocketClient do
   @impl WebSockex
   def handle_disconnect(_conn, state) do
     IO.puts("disconnected")
-    {:reconnect, state}
+    behaviour = if Mix.env() == :test, do: :ok, else: :reconnect
+    {behaviour, state}
   end
 
   def subscribe_matches(pid, products \\ []) do

@@ -1,14 +1,14 @@
 defmodule CryptoWatchWeb.DataChannelTest do
   use CryptoWatchWeb.ChannelCase
 
-  # setup do
-  #   {:ok, _, socket} =
-  #     CryptoWatchWeb.DataSocket
-  #     |> socket("user_id", %{some: :assign})
-  #     |> subscribe_and_join(CryptoWatchWeb.DataChannel, "data:matches")
+  setup do
+    {:ok, _, socket} =
+      CryptoWatchWeb.DataSocket
+      |> socket("user_id", %{some: :assign})
+      |> subscribe_and_join(CryptoWatchWeb.DataChannel, "data:matches")
 
-  #   %{socket: socket}
-  # end
+    %{socket: socket}
+  end
 
   # test "ping replies with status ok", %{socket: socket} do
   #   ref = push(socket, "ping", %{"hello" => "there"})
