@@ -43,4 +43,32 @@ import "phoenix_html"
 // >> liveSocket.disableLatencySim()
 // window.liveSocket = liveSocket
 
-import "./data_socket.js"
+import socket from "./data_socket.js"
+
+const MAX_VISIBLE_MATCHES = 20
+const $matches = document.querySelector('.matches')
+
+let channel = socket.channel("data:matches", {})
+channel.join()
+  .receive("ok", resp => { console.log("Joined successfully", resp) })
+  .receive("error", resp => { console.log("Unable to join", resp) })
+
+channel.on("match", (message) => {
+  console.log('received data', message.data)
+
+  const { data } = message
+  const match = document.createElement('div')
+  match.innerHTML = `
+    <div>${data.side}</div> <div>${data.size}</div> <div>${data.price}</div>
+  `
+
+  match.classList.add(data.side)
+  match.classList.add('match')
+  $matches.prepend(match)
+  console.log($matches.childNodes.length)
+
+  if ($matches.childNodes.length > MAX_VISIBLE_MATCHES) {
+    const last = $matches.childNodes[$matches.childNodes.length - 1]
+    last.parentNode.removeChild(last)
+  }
+})

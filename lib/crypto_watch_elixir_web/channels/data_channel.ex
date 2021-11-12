@@ -2,14 +2,14 @@ defmodule CryptoWatchElixirWeb.DataChannel do
   use CryptoWatchElixirWeb, :channel
 
   @impl true
-  def join("data:42", _payload, socket) do
+  def join("data:matches", _payload, socket) do
     {:ok, socket}
   end
 
   def send_to_channel(data) do
     Phoenix.PubSub.broadcast(
       CryptoWatchElixir.PubSub,
-      "data:42",
+      "data:matches",
       %{data: data}
     )
   end
@@ -17,7 +17,7 @@ defmodule CryptoWatchElixirWeb.DataChannel do
   @impl true
 
   def handle_info(%{data: data}, socket) do
-    push(socket, "data", %{data: data})
+    push(socket, "match", %{data: data})
     {:noreply, socket}
   end
 
