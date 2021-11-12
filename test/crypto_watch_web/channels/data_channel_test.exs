@@ -1,11 +1,11 @@
-defmodule CryptoWatchElixirWeb.DataChannelTest do
-  use CryptoWatchElixirWeb.ChannelCase
+defmodule CryptoWatchWeb.DataChannelTest do
+  use CryptoWatchWeb.ChannelCase
 
   setup do
     {:ok, _, socket} =
-      CryptoWatchElixirWeb.DataSocket
+      CryptoWatchWeb.DataSocket
       |> socket("user_id", %{some: :assign})
-      |> subscribe_and_join(CryptoWatchElixirWeb.DataChannel, "data:lobby")
+      |> subscribe_and_join(CryptoWatchWeb.DataChannel, "data:lobby")
 
     %{socket: socket}
   end

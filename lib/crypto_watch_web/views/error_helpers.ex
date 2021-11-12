@@ -1,4 +1,4 @@
-defmodule CryptoWatchElixirWeb.ErrorHelpers do
+defmodule CryptoWatchWeb.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """

@@ -1,4 +1,4 @@
-defmodule CryptoWatchElixirWeb.Telemetry do
+defmodule CryptoWatchWeb.Telemetry do
   use Supervisor
   import Telemetry.Metrics
 
@@ -42,7 +42,7 @@ defmodule CryptoWatchElixirWeb.Telemetry do
     [
       # A module, function and arguments to be invoked periodically.
       # This function must call :telemetry.execute/3 and a metric must be added above.
-      # {CryptoWatchElixirWeb, :count_users, []}
+      # {CryptoWatchWeb, :count_users, []}
     ]
   end
 end

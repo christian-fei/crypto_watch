@@ -1,5 +1,5 @@
-defmodule CryptoWatchElixirWeb.DataChannel do
-  use CryptoWatchElixirWeb, :channel
+defmodule CryptoWatchWeb.DataChannel do
+  use CryptoWatchWeb, :channel
 
   @impl true
   def join("data:matches", _payload, socket) do
@@ -12,7 +12,7 @@ defmodule CryptoWatchElixirWeb.DataChannel do
 
   def broadcast_match(data) do
     Phoenix.PubSub.broadcast(
-      CryptoWatchElixir.PubSub,
+      CryptoWatch.PubSub,
       "data:matches",
       %{match: data}
     )
@@ -20,7 +20,7 @@ defmodule CryptoWatchElixirWeb.DataChannel do
 
   def broadcast_level2(data) do
     Phoenix.PubSub.broadcast(
-      CryptoWatchElixir.PubSub,
+      CryptoWatch.PubSub,
       "data:level2",
       %{level2: data}
     )

@@ -1,12 +1,12 @@
-defmodule CryptoWatchElixirWeb do
+defmodule CryptoWatchWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use CryptoWatchElixirWeb, :controller
-      use CryptoWatchElixirWeb, :view
+      use CryptoWatchWeb, :controller
+      use CryptoWatchWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,18 +19,18 @@ defmodule CryptoWatchElixirWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: CryptoWatchElixirWeb
+      use Phoenix.Controller, namespace: CryptoWatchWeb
 
       import Plug.Conn
-      alias CryptoWatchElixirWeb.Router.Helpers, as: Routes
+      alias CryptoWatchWeb.Router.Helpers, as: Routes
     end
   end
 
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/crypto_watch_elixir_web/templates",
-        namespace: CryptoWatchElixirWeb
+        root: "lib/crypto_watch_web/templates",
+        namespace: CryptoWatchWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller,
@@ -44,7 +44,7 @@ defmodule CryptoWatchElixirWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {CryptoWatchElixirWeb.LayoutView, "live.html"}
+        layout: {CryptoWatchWeb.LayoutView, "live.html"}
 
       unquote(view_helpers())
     end
@@ -85,8 +85,8 @@ defmodule CryptoWatchElixirWeb do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      import CryptoWatchElixirWeb.ErrorHelpers
-      alias CryptoWatchElixirWeb.Router.Helpers, as: Routes
+      import CryptoWatchWeb.ErrorHelpers
+      alias CryptoWatchWeb.Router.Helpers, as: Routes
     end
   end
 

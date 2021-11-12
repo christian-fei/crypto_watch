@@ -1,4 +1,4 @@
-# CryptoWatchElixir
+# CryptoWatch
 
 To start your Phoenix server:
 

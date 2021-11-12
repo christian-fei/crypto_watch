@@ -1,5 +1,5 @@
-defmodule CryptoWatchElixirWeb.PageControllerTest do
-  use CryptoWatchElixirWeb.ConnCase
+defmodule CryptoWatchWeb.PageControllerTest do
+  use CryptoWatchWeb.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get(conn, "/")

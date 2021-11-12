@@ -1,4 +1,4 @@
-defmodule CryptoWatchElixirWeb.ConnCase do
+defmodule CryptoWatchWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -11,7 +11,7 @@ defmodule CryptoWatchElixirWeb.ConnCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use CryptoWatchElixirWeb.ConnCase, async: true`, although
+  by setting `use CryptoWatchWeb.ConnCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -22,12 +22,12 @@ defmodule CryptoWatchElixirWeb.ConnCase do
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
-      import CryptoWatchElixirWeb.ConnCase
+      import CryptoWatchWeb.ConnCase
 
-      alias CryptoWatchElixirWeb.Router.Helpers, as: Routes
+      alias CryptoWatchWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing
-      @endpoint CryptoWatchElixirWeb.Endpoint
+      @endpoint CryptoWatchWeb.Endpoint
     end
   end
 

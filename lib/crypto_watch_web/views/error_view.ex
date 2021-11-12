@@ -1,5 +1,5 @@
-defmodule CryptoWatchElixirWeb.ErrorView do
-  use CryptoWatchElixirWeb, :view
+defmodule CryptoWatchWeb.ErrorView do
+  use CryptoWatchWeb, :view
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.

@@ -8,10 +8,10 @@
 import Config
 
 # Configures the endpoint
-config :crypto_watch_elixir, CryptoWatchElixirWeb.Endpoint,
+config :crypto_watch, CryptoWatchWeb.Endpoint,
   url: [host: "localhost"],
-  render_errors: [view: CryptoWatchElixirWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: CryptoWatchElixir.PubSub,
+  render_errors: [view: CryptoWatchWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: CryptoWatch.PubSub,
   live_view: [signing_salt: "gUH3399y"]
 
 # Configure esbuild (the version is required)
@@ -32,8 +32,7 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :crypto_watch_elixir, CryptoWatchElixirWeb.Endpoint,
-  pubsub_server: CryptoWatchElixir.PubSub
+config :crypto_watch, CryptoWatchWeb.Endpoint, pubsub_server: CryptoWatch.PubSub
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

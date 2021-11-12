@@ -1,4 +1,4 @@
-defmodule CryptoWatchElixir.WebsocketClient do
+defmodule CryptoWatch.WebsocketClient do
   use WebSockex
 
   @endpoint "wss://ws-feed.exchange.coinbase.com"
@@ -24,8 +24,8 @@ defmodule CryptoWatchElixir.WebsocketClient do
 
     # |> IO.inspect()
 
-    if data[:type] == "match", do: CryptoWatchElixirWeb.DataChannel.broadcast_match(data)
-    if data[:type] == "l2update", do: CryptoWatchElixirWeb.DataChannel.broadcast_level2(data)
+    if data[:type] == "match", do: CryptoWatchWeb.DataChannel.broadcast_match(data)
+    if data[:type] == "l2update", do: CryptoWatchWeb.DataChannel.broadcast_level2(data)
 
     {:ok, state}
   end

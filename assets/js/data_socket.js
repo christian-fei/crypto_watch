@@ -4,7 +4,7 @@
 // Bring in Phoenix channels client library:
 import { Socket } from "phoenix"
 
-// And connect to the path in "lib/crypto_watch_elixir_web/endpoint.ex". We pass the
+// And connect to the path in "lib/crypto_watch_web/endpoint.ex". We pass the
 // token for authentication. Read below how it should be used.
 let socket = new Socket("/socket", { params: {} })
 
@@ -14,7 +14,7 @@ let socket = new Socket("/socket", { params: {} })
 // If the current user exists you can assign the user's token in
 // the connection for use in the layout.
 //
-// In your "lib/crypto_watch_elixir_web/router.ex":
+// In your "lib/crypto_watch_web/router.ex":
 //
 //     pipeline :browser do
 //       ...
@@ -32,12 +32,12 @@ let socket = new Socket("/socket", { params: {} })
 //     end
 //
 // Now you need to pass this token to JavaScript. You can do so
-// inside a script tag in "lib/crypto_watch_elixir_web/templates/layout/app.html.heex":
+// inside a script tag in "lib/crypto_watch_web/templates/layout/app.html.heex":
 //
 //     <script>window.userToken = "<%= assigns[:user_token] %>";</script>
 //
 // You will need to verify the user token in the "connect/3" function
-// in "lib/crypto_watch_elixir_web/channels/user_socket.ex":
+// in "lib/crypto_watch_web/channels/user_socket.ex":
 //
 //     def connect(%{"token" => token}, socket, _connect_info) do
 //       # max_age: 1209600 is equivalent to two weeks in seconds

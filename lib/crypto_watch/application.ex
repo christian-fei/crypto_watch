@@ -1,4 +1,4 @@
-defmodule CryptoWatchElixir.Application do
+defmodule CryptoWatch.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -9,19 +9,19 @@ defmodule CryptoWatchElixir.Application do
   def start(_type, _args) do
     children = [
       # Start the Telemetry supervisor
-      CryptoWatchElixirWeb.Telemetry,
+      CryptoWatchWeb.Telemetry,
       # Start the PubSub system
-      {Phoenix.PubSub, [name: CryptoWatchElixir.PubSub, adapter: Phoenix.PubSub.PG2]},
-      {CryptoWatchElixir.WebsocketClient, ["BTC-EUR"]},
+      {Phoenix.PubSub, [name: CryptoWatch.PubSub, adapter: Phoenix.PubSub.PG2]},
+      {CryptoWatch.WebsocketClient, ["BTC-EUR"]},
       # Start the Endpoint (http/https)
-      CryptoWatchElixirWeb.Endpoint
-      # Start a worker by calling: CryptoWatchElixir.Worker.start_link(arg)
-      # {CryptoWatchElixir.Worker, arg}
+      CryptoWatchWeb.Endpoint
+      # Start a worker by calling: CryptoWatch.Worker.start_link(arg)
+      # {CryptoWatch.Worker, arg}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: CryptoWatchElixir.Supervisor]
+    opts = [strategy: :one_for_one, name: CryptoWatch.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
@@ -29,7 +29,7 @@ defmodule CryptoWatchElixir.Application do
   # whenever the application is updated.
   @impl true
   def config_change(changed, _new, removed) do
-    CryptoWatchElixirWeb.Endpoint.config_change(changed, removed)
+    CryptoWatchWeb.Endpoint.config_change(changed, removed)
     :ok
   end
 end

@@ -1,4 +1,4 @@
-defmodule CryptoWatchElixirWeb.DataSocket do
+defmodule CryptoWatchWeb.DataSocket do
   use Phoenix.Socket
 
   # A Socket handler
@@ -8,9 +8,9 @@ defmodule CryptoWatchElixirWeb.DataSocket do
 
   ## Channels
   # Uncomment the following line to define a "room:*" topic
-  # pointing to the `CryptoWatchElixirWeb.RoomChannel`:
+  # pointing to the `CryptoWatchWeb.RoomChannel`:
   #
-  channel "data:*", CryptoWatchElixirWeb.DataChannel
+  channel "data:*", CryptoWatchWeb.DataChannel
   #
   # To create a channel file, use the mix task:
   #
@@ -42,7 +42,7 @@ defmodule CryptoWatchElixirWeb.DataSocket do
   # Would allow you to broadcast a "disconnect" event and terminate
   # all active sockets and channels for a given user:
   #
-  #     Elixir.CryptoWatchElixirWeb.Endpoint.broadcast("user_socket:#{user.id}", "disconnect", %{})
+  #     Elixir.CryptoWatchWeb.Endpoint.broadcast("user_socket:#{user.id}", "disconnect", %{})
   #
   # Returning `nil` makes this socket anonymous.
   @impl true

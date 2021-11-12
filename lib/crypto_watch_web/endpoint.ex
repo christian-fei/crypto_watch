@@ -1,12 +1,12 @@
-defmodule CryptoWatchElixirWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :crypto_watch_elixir
+defmodule CryptoWatchWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :crypto_watch
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
     store: :cookie,
-    key: "_crypto_watch_elixir_key",
+    key: "_crypto_watch_key",
     signing_salt: "WuI2T96H"
   ]
 
@@ -18,7 +18,7 @@ defmodule CryptoWatchElixirWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :crypto_watch_elixir,
+    from: :crypto_watch,
     gzip: false,
     only: ~w(assets fonts images favicon.ico robots.txt)
 
@@ -41,9 +41,9 @@ defmodule CryptoWatchElixirWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug CryptoWatchElixirWeb.Router
+  plug CryptoWatchWeb.Router
 
-  socket "/socket", CryptoWatchElixirWeb.DataSocket,
+  socket "/socket", CryptoWatchWeb.DataSocket,
     websocket: true,
     longpoll: false
 end

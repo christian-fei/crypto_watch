@@ -1,9 +1,9 @@
-defmodule CryptoWatchElixir.MixProject do
+defmodule CryptoWatch.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :crypto_watch_elixir,
+      app: :crypto_watch,
       version: "0.1.0",
       elixir: "~> 1.12",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -19,7 +19,7 @@ defmodule CryptoWatchElixir.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {CryptoWatchElixir.Application, []},
+      mod: {CryptoWatch.Application, []},
       extra_applications: [:logger, :runtime_tools, :websockex]
     ]
   end
