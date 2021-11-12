@@ -20,7 +20,7 @@ defmodule CryptoWatchElixir.MixProject do
   def application do
     [
       mod: {CryptoWatchElixir.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :websockex]
     ]
   end
 
@@ -38,6 +38,7 @@ defmodule CryptoWatchElixir.MixProject do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 0.16.0"},
       {:floki, ">= 0.30.0", only: :test},
+      {:websockex, "~> 0.4.3"},
       {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
