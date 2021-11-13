@@ -12,6 +12,11 @@ defmodule CryptoWatchWeb.DataChannel do
   end
 
   @impl true
+  def join("data:order_book", _payload, socket) do
+    {:ok, socket}
+  end
+
+  @impl true
   def handle_info(%{match: data}, socket) do
     push(socket, "data", %{data: data})
     {:noreply, socket}
@@ -19,6 +24,11 @@ defmodule CryptoWatchWeb.DataChannel do
 
   @impl true
   def handle_info(%{level2: data}, socket) do
+    push(socket, "data", %{data: data})
+    {:noreply, socket}
+  end
+
+  def handle_info(%{order_book: data}, socket) do
     push(socket, "data", %{data: data})
     {:noreply, socket}
   end
@@ -36,6 +46,14 @@ defmodule CryptoWatchWeb.DataChannel do
       CryptoWatch.PubSub,
       "data:level2",
       %{level2: data}
+    )
+  end
+
+  def broadcast_order_book(data) do
+    Phoenix.PubSub.broadcast(
+      CryptoWatch.PubSub,
+      "data:order_book",
+      %{order_book: data}
     )
   end
 

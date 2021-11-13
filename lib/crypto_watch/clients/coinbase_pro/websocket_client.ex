@@ -1,4 +1,4 @@
-defmodule CryptoWatch.WebsocketClient do
+defmodule CryptoWatch.CoinbasePro.WebsocketClient do
   use WebSockex
 
   @endpoint "wss://ws-feed.exchange.coinbase.com"

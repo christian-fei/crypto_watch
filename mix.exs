@@ -20,7 +20,7 @@ defmodule CryptoWatch.MixProject do
   def application do
     [
       mod: {CryptoWatch.Application, []},
-      extra_applications: [:logger, :runtime_tools, :websockex]
+      extra_applications: [:logger, :runtime_tools, :websockex, :hackney, :httpoison]
     ]
   end
 
@@ -43,7 +43,10 @@ defmodule CryptoWatch.MixProject do
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"}
+      {:plug_cowboy, "~> 2.5"},
+      {:httpoison, "~> 1.8"},
+      {:hackney, "~> 1.18"},
+      {:poison, "~> 5.0"}
     ]
   end
 

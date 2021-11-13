@@ -57,7 +57,14 @@ let level2Channel = socket.channel("data:level2", {})
 level2Channel.join()
   .receive("ok", resp => { console.log("level2 channel joined successfully", resp) })
   .receive("error", resp => { console.log("Unable to join level2 channel", resp) })
+let orderbookChannel = socket.channel("data:order_book", {})
+orderbookChannel.join()
+  .receive("ok", resp => { console.log("order_book channel joined successfully", resp) })
+  .receive("error", resp => { console.log("Unable to join order_book channel", resp) })
 
+orderbookChannel.on("data", (message) => {
+  console.log('orderbook', message.data)
+})
 level2Channel.on("data", (message) => {
   // console.log('level2', message.data)
   const { data } = message
