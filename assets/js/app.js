@@ -115,6 +115,7 @@ level2Channel.on("data", (message) => {
 matchesChannel.on("data", (message) => {
 
   const { data } = message
+  if (!data.side) return
   const $match = document.createElement('div')
   $match.innerHTML = `
     <div class="flex"><div>${data.side}</div> <div>${data.size}</div> <div>${data.price}</div></div>
