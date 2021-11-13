@@ -127,3 +127,18 @@ svg, html, body {
   width: 100%;
   height: 100%;
 }
+
+
+.blink {
+  animation: blink .3s ease;
+  transition: all .3s ease;
+}
+
+@keyframes blink {
+  from {color: yellow;}
+  to {color: white;}
+}
+
+h1, h2, h3, h4, h5, h5 {
+  font-weight: bold;
+}

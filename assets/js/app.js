@@ -49,6 +49,7 @@ const MAX_VISIBLE_MATCHES = 20
 const $matches = document.querySelector('.matches')
 const $level2s = document.querySelector('.level2')
 const $orderbook = document.querySelector('.orderbook')
+const $ticker = document.querySelector('.ticker')
 const svg = d3.select('.orderbook-graph svg')
 
 let matchesChannel = socket.channel("data:matches", {})
@@ -121,6 +122,9 @@ matchesChannel.on("data", (message) => {
   if (!data.side) return
 
   renderMatch(data)
+  $ticker.innerHTML = `
+    <h1 class="blink">${data.price}</h1>
+  `
 
   function renderMatch(data) {
     const $match = document.createElement('div')
