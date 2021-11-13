@@ -40,7 +40,9 @@ defmodule CryptoWatch.Cache do
 
   @impl true
   def handle_cast({:add_match, name, match}, state) do
-    # beware that the matches will grow over time right now, FIX ME!
+    updated_matches =
+      Map.put(%{}, name, (Map.get(state.matches, name, []) ++ [match]) |> Enum.take(500))
+
     state =
       Map.merge(
         state,
@@ -48,7 +50,7 @@ defmodule CryptoWatch.Cache do
           matches:
             Map.merge(
               state.matches,
-              Map.put(%{}, name, Map.get(state.matches, name, []) ++ [match])
+              updated_matches
             )
         }
       )
