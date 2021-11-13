@@ -26,7 +26,8 @@ defmodule CryptoWatch.OrderBook do
           order_books
 
         {:error, reason} ->
-          IO.puts("Error getting order book" <> reason)
+          IO.puts("Error getting order book")
+          IO.inspect(reason)
           order_books
       end
 
