@@ -37,3 +37,25 @@ body {
 .flex > * {
   flex: 1;
 }
+
+.orderbook-item {
+  position: relative;
+  font-weight: bold;
+  padding-left: 2em;
+}
+
+.orderbook-buy {
+  color: red;
+}
+.orderbook-sell {
+  color: green;
+}
+
+.bg-size {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background: lightgrey;
+  opacity: 0.1;
+}

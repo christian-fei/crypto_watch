@@ -48,6 +48,7 @@ import socket from "./data_socket.js"
 const MAX_VISIBLE_MATCHES = 20
 const $matches = document.querySelector('.matches')
 const $level2s = document.querySelector('.level2')
+const $orderbook = document.querySelector('.orderbook')
 
 let matchesChannel = socket.channel("data:matches", {})
 matchesChannel.join()
@@ -63,7 +64,25 @@ orderbookChannel.join()
   .receive("error", resp => { console.log("Unable to join order_book channel", resp) })
 
 orderbookChannel.on("data", (message) => {
-  console.log('orderbook', message.data)
+  console.log('updated orderbook')
+  const { data: orderbook } = message
+  const spread = orderbook.asks[0][0] - orderbook.bids[0][0]
+  const asks = orderbook.asks.slice(0, 10).reverse()
+  const bids = orderbook.bids.slice(0, 10)
+
+  const maxSize = Math.max(...asks.map(o => o[1]).concat(bids.map(o => o[1])))
+  const calcPercentage = size => size / maxSize * 100
+  console.log(maxSize)
+
+  $orderbook.innerHTML = `
+    ${asks.map(o => `<div class="orderbook-item orderbook-buy">${o[1]} ${o[0]}<div class="bg-size" style="width: ${calcPercentage(o[1]) / 10}%"></div></div>`).join('')}
+    <br>
+    <br>
+    <div class="orderbook-spread">Spread ${spread.toFixed(2)}</div>
+    <br>
+    <br>
+    ${bids.map(o => `<div class="orderbook-item orderbook-sell">${o[1]} ${o[0]}<div class="bg-size" style="width: ${calcPercentage(o[1]) / 10}%"></div></div>`).join('')}
+  `
 })
 level2Channel.on("data", (message) => {
   // console.log('level2', message.data)
