@@ -1,12 +1,12 @@
 defmodule CryptoWatch.Cache do
   use GenServer
 
-  def start_link(opts) do
+  def start_link(opts \\ []) do
     GenServer.start_link(__MODULE__, :ok, opts)
   end
 
   @impl true
-  def init(:ok) do
+  def init(_) do
     Process.register(self(), __MODULE__)
 
     {:ok,
@@ -43,7 +43,13 @@ defmodule CryptoWatch.Cache do
     state =
       Map.merge(
         state,
-        Map.merge(state.matches, Map.put(%{}, name, Map.get(state.matches, name, []) ++ [match]))
+        %{
+          matches:
+            Map.merge(
+              state.matches,
+              Map.put(%{}, name, Map.get(state.matches, name, []) ++ [match])
+            )
+        }
       )
 
     {:noreply, state}
