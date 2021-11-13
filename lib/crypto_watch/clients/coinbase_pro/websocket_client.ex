@@ -12,7 +12,6 @@ defmodule CryptoWatch.CoinbasePro.WebsocketClient do
 
   @impl WebSockex
   def handle_connect(_conn, state) do
-    IO.puts("Connected!")
     {:ok, state}
   end
 
@@ -34,7 +33,6 @@ defmodule CryptoWatch.CoinbasePro.WebsocketClient do
 
   @impl WebSockex
   def handle_disconnect(_conn, state) do
-    IO.puts("disconnected")
     behaviour = if Mix.env() == :test, do: :ok, else: :reconnect
     {behaviour, state}
   end

@@ -29,7 +29,6 @@ defmodule CryptoWatchWeb.DataChannel do
   # server api
   @impl true
   def join("data:matches", _payload, socket) do
-    IO.puts("Joined data:matches")
     send(self(), :after_join_matches)
     {:ok, socket}
   end
@@ -60,8 +59,6 @@ defmodule CryptoWatchWeb.DataChannel do
   def handle_info(:after_join_matches, socket) do
     case GenServer.call(CryptoWatch.Cache, {:get_matches, "BTC-EUR"}) do
       {:ok, matches} ->
-        IO.inspect("Found matches")
-        IO.inspect(matches)
         push(socket, "data", %{data: matches})
 
       :error ->

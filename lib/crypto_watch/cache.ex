@@ -23,7 +23,6 @@ defmodule CryptoWatch.Cache do
 
   @impl true
   def handle_call({:get_matches, name}, _from, state) do
-    # IO.inspect(state.matches)
     {:reply, Map.fetch(state.matches, name), state}
   end
 
@@ -35,17 +34,12 @@ defmodule CryptoWatch.Cache do
 
   @impl true
   def handle_cast({:update_matches, name, matches}, state) do
-    IO.puts("update matches " <> name)
     state = Map.merge(state, %{matches: Map.put(%{}, name, matches)})
     {:noreply, state}
   end
 
   @impl true
   def handle_cast({:add_match, name, match}, state) do
-    IO.puts("add match")
-    IO.inspect(name)
-    IO.inspect(match)
-
     state =
       Map.merge(
         state,
