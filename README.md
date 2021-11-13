@@ -1,18 +1,16 @@
 # CryptoWatch
 
-To start your Phoenix server:
+> Like [pro.coinbase.com](https://pro.coinbase.com), but BEAM-flavoured
 
-  * Install dependencies with `mix deps.get`
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+```
+mix deps.get
+iex -S mix phx.server
+# or
+mix phx.server
+```
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+visit [`localhost:4000`](http://localhost:4000)
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+# Preview
 
-## Learn more
-
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+![crypto watch preview](.github/assets/crypto_watch_preview.png)
