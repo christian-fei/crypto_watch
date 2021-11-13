@@ -4,7 +4,7 @@ defmodule CryptoWatch.CoinbasePro.WebsocketClient do
   @endpoint "wss://ws-feed.exchange.coinbase.com"
 
   def start_link(products \\ ["BTC-EUR"]) do
-    {:ok, pid} = WebSockex.start_link(@endpoint, __MODULE__, :no_state)
+    {:ok, pid} = WebSockex.start_link(@endpoint, __MODULE__, %{products: products})
     subscribe_matches(pid, products)
     subscribe_level2(pid, products)
     {:ok, pid}
@@ -22,9 +22,11 @@ defmodule CryptoWatch.CoinbasePro.WebsocketClient do
       msg
       |> Jason.decode!(keys: :atoms)
 
-    # |> IO.inspect()
+    if data[:type] == "match" do
+      CryptoWatchWeb.DataChannel.broadcast_match(data)
+      GenServer.cast(CryptoWatch.Cache, {:add_match, "BTC-EUR", data})
+    end
 
-    if data[:type] == "match", do: CryptoWatchWeb.DataChannel.broadcast_match(data)
     if data[:type] == "l2update", do: CryptoWatchWeb.DataChannel.broadcast_level2(data)
 
     {:ok, state}
