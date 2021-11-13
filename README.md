@@ -2,9 +2,10 @@
 
 > Like [pro.coinbase.com](https://pro.coinbase.com), but BEAM-flavoured
 
-# Preview
 
-![crypto watch preview](.github/assets/crypto_watch_preview.png)
+## Animated
+
+![crypto watch preview](.github/assets/crypto_watch_preview.gif)
 
 # Installation and usage
 ```
@@ -15,6 +16,8 @@ mix phx.server
 ```
 
 visit [`localhost:4000`](http://localhost:4000)
+
+<!-- ![crypto watch preview](.github/assets/crypto_watch_preview.png) -->
 
 # How it works
 
@@ -52,4 +55,3 @@ The updates are broadcasted to all clients via the websocket connection.
 Currently the clients cannot choose a currency pair to watch.
 
 This is a perfect candidate for a pull request :)
-
