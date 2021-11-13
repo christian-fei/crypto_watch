@@ -102,7 +102,7 @@ level2Channel.on("data", (message) => {
   const { data } = message
   const $level2 = document.createElement('div')
   $level2.innerHTML = `
-    <div class="level2-item">${data.changes[0][0]} ${data.changes[0][1]} ${data.changes[0][2]}</div> <div class="time">${data.time.substring(11)}</div>
+    <div class="level2-item ${data.changes[0][0]}">${data.changes[0][0]} ${data.changes[0][1]} ${data.changes[0][2]} <div class="time">${data.time.substring(11)}</div></div>
   `
   $level2s.prepend($level2)
 
@@ -117,7 +117,7 @@ matchesChannel.on("data", (message) => {
   const { data } = message
   const $match = document.createElement('div')
   $match.innerHTML = `
-    <div>${data.side}</div> <div>${data.size}</div> <div>${data.price}</div>
+    <div class="flex"><div>${data.side}</div> <div>${data.size}</div> <div>${data.price}</div></div>
   `
 
   $match.classList.add(data.side)
