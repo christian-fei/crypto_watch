@@ -8,12 +8,11 @@
 body {
   background: #282828;
   color: white;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .matches {
   max-width: 400px;
-  font-size: 0.9em;
 }
 .match {
   display: flex;
@@ -29,6 +28,10 @@ body {
 .sell {
   border-left: 5px solid green;
   padding-left: 5px;
+}
+
+.level2-item .time {
+  font-size: 0.8em;
 }
 
 .flex {

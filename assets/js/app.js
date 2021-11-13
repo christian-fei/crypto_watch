@@ -102,7 +102,7 @@ level2Channel.on("data", (message) => {
   const { data } = message
   const $level2 = document.createElement('div')
   $level2.innerHTML = `
-    <div>${data.changes[0][0]} ${data.changes[0][1]} ${data.changes[0][2]}</div> <div>${data.time}</div>
+    <div class="level2-item">${data.changes[0][0]} ${data.changes[0][1]} ${data.changes[0][2]}</div> <div class="time">${data.time.substring(11)}</div>
   `
   $level2s.prepend($level2)
 
