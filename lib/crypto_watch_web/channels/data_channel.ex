@@ -1,38 +1,7 @@
 defmodule CryptoWatchWeb.DataChannel do
   use CryptoWatchWeb, :channel
 
-  @impl true
-  def join("data:matches", _payload, socket) do
-    {:ok, socket}
-  end
-
-  @impl true
-  def join("data:level2", _payload, socket) do
-    {:ok, socket}
-  end
-
-  @impl true
-  def join("data:order_book", _payload, socket) do
-    {:ok, socket}
-  end
-
-  @impl true
-  def handle_info(%{match: data}, socket) do
-    push(socket, "data", %{data: data})
-    {:noreply, socket}
-  end
-
-  @impl true
-  def handle_info(%{level2: data}, socket) do
-    push(socket, "data", %{data: data})
-    {:noreply, socket}
-  end
-
-  def handle_info(%{order_book: data}, socket) do
-    push(socket, "data", %{data: data})
-    {:noreply, socket}
-  end
-
+  # client api
   def broadcast_match(data) do
     Phoenix.PubSub.broadcast(
       CryptoWatch.PubSub,
@@ -55,6 +24,53 @@ defmodule CryptoWatchWeb.DataChannel do
       "data:order_book",
       %{order_book: data}
     )
+  end
+
+  # server api
+  @impl true
+  def join("data:matches", _payload, socket) do
+    {:ok, socket}
+  end
+
+  @impl true
+  def join("data:level2", _payload, socket) do
+    {:ok, socket}
+  end
+
+  @impl true
+  def join("data:order_book", _payload, socket) do
+    IO.inspect("joined order_book channel")
+    send(self(), :after_join_order_book)
+    {:ok, socket}
+  end
+
+  def handle_info(:after_join_order_book, socket) do
+    case GenServer.call(CryptoWatch.Cache, {:get_order_book, "BTC-EUR"}) do
+      {:ok, order_book} ->
+        push(socket, "data", %{data: order_book})
+
+      :error ->
+        IO.puts("error getting order book")
+    end
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_info(%{match: data}, socket) do
+    push(socket, "data", %{data: data})
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_info(%{level2: data}, socket) do
+    push(socket, "data", %{data: data})
+    {:noreply, socket}
+  end
+
+  def handle_info(%{order_book: data}, socket) do
+    push(socket, "data", %{data: data})
+    {:noreply, socket}
   end
 
   # # Channels can be used in a request/response fashion
