@@ -1,6 +1,6 @@
 defmodule CryptoWatch.OrderBook do
   use GenServer
-  @loop_interval 3_000
+  @loop_interval 2_000
 
   def start_link(_) do
     GenServer.start_link(__MODULE__, %{})
