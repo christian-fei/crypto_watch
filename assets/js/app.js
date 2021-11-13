@@ -100,6 +100,8 @@ orderbookChannel.on("data", (message) => {
 })
 level2Channel.on("data", (message) => {
   const { data } = message
+  if (Array.isArray(data)) debugger
+
   const $level2 = document.createElement('div')
   $level2.innerHTML = `
     <div class="level2-item ${data.changes[0][0]}">${data.changes[0][0]} ${data.changes[0][1]} ${data.changes[0][2]} <div class="time">${data.time.substring(11)}</div></div>
@@ -113,22 +115,29 @@ level2Channel.on("data", (message) => {
 
 })
 matchesChannel.on("data", (message) => {
-
   const { data } = message
+
+  if (Array.isArray(data)) return data.forEach(renderMatch)
   if (!data.side) return
-  const $match = document.createElement('div')
-  $match.innerHTML = `
-    <div class="flex"><div>${data.side}</div> <div>${data.size}</div> <div>${data.price}</div></div>
-  `
 
-  $match.classList.add(data.side)
-  $match.classList.add('match')
-  $matches.prepend($match)
+  renderMatch(data)
 
-  if ($matches.childNodes.length > MAX_VISIBLE_MATCHES) {
-    const last = $matches.childNodes[$matches.childNodes.length - 1]
-    last.parentNode.removeChild(last)
+  function renderMatch(data) {
+    const $match = document.createElement('div')
+    $match.innerHTML = `
+      <div class="flex"><div>${data.side}</div> <div>${data.size}</div> <div>${data.price}</div></div>
+    `
+
+    $match.classList.add(data.side)
+    $match.classList.add('match')
+    $matches.prepend($match)
+
+    if ($matches.childNodes.length > MAX_VISIBLE_MATCHES) {
+      const last = $matches.childNodes[$matches.childNodes.length - 1]
+      last.parentNode.removeChild(last)
+    }
   }
+
 })
 
 function draw(unsortedData, target, d3 = window.d3) {

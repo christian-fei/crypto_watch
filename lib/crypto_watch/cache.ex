@@ -40,6 +40,7 @@ defmodule CryptoWatch.Cache do
 
   @impl true
   def handle_cast({:add_match, name, match}, state) do
+    # beware that the matches will grow over time right now, FIX ME!
     state =
       Map.merge(
         state,
