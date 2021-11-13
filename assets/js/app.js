@@ -118,7 +118,13 @@ level2Channel.on("data", (message) => {
 matchesChannel.on("data", (message) => {
   const { data } = message
 
-  if (Array.isArray(data)) return data.forEach(renderMatch)
+  if (Array.isArray(data)) {
+    $ticker.innerHTML = `
+    <h1 class="blink">${data[0].price}</h1>
+  `
+
+    return data.forEach(renderMatch)
+  }
   if (!data.side) return
 
   renderMatch(data)
