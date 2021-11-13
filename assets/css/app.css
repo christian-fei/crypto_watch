@@ -42,6 +42,21 @@ body {
   font-size: 0.8em;
 }
 
+.level2-item.buy {
+  border-left: 0;
+  border-right: 5px solid rgb(255, 69, 69);
+  padding-left: 0;
+  padding-right: 5px;
+}
+
+.level2-item.sell {
+  border-left: 0;
+  border-right: 5px solid rgb(49, 255, 49);
+  padding-left: 0;
+  padding-right: 5px;
+}
+
+
 .flex {
   display: flex;
 }
