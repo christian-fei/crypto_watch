@@ -135,7 +135,7 @@ matchesChannel.on("data", (message) => {
   function renderMatch(data) {
     const $match = document.createElement('div')
     $match.innerHTML = `
-      <div class="flex"><div>${data.side}</div> <div>${data.size}</div> <div>${data.price}</div></div>
+      <div class="flex blink"><div>${data.side}</div> <div>${data.size}</div> <div>${data.price}</div></div>
     `
 
     $match.classList.add(data.side)
