@@ -2,9 +2,6 @@
 
 > Like [pro.coinbase.com](https://pro.coinbase.com), but BEAM-flavoured
 
-
-## Animated
-
 ![crypto watch preview](.github/assets/crypto_watch_preview.gif)
 
 # Installation and usage
