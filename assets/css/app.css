@@ -7,6 +7,7 @@
 
 body {
   background: #282828;
+  background: #111;
   color: white;
   font-size: 14px;
 }
@@ -28,6 +29,13 @@ body {
 .sell {
   border-left: 5px solid green;
   padding-left: 5px;
+}
+
+.matches-container {
+  text-align: center;
+}
+.level2-container {
+  text-align: right;
 }
 
 .level2-item .time {
