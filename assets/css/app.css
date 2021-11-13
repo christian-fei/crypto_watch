@@ -38,6 +38,10 @@ body {
   flex: 1;
 }
 
+.orderbook-spread {
+  text-align: center;
+}
+
 .orderbook-item {
   position: relative;
   font-weight: bold;
@@ -58,4 +62,40 @@ body {
   left: 0;
   background: lightgrey;
   opacity: 0.1;
+}
+.orderbook-graph {
+  height: 300px;
+  width: 100%;
+}
+.orderbook-graph svg {
+  width: 100%;
+  height: 300px;
+}
+
+.bar.bid {
+  fill: rgba(40, 193, 44, 0.3);
+}
+
+.bar.ask {
+  fill: rgba(255, 0, 0, 0.4);
+}
+
+.bar:hover {
+  fill: #337ab7;
+}
+
+text {
+  fill: white;
+}
+.axis--x path {
+  display: none;
+}
+
+.axis--y path {
+  display: none;
+}
+
+svg, html, body {
+  width: 100%;
+  height: 100%;
 }

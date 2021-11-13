@@ -7,6 +7,7 @@
     <%= csrf_meta_tag() %>
     <%= live_title_tag assigns[:page_title] || "CryptoWatch", suffix: " · Phoenix Framework" %>
     <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </head>
   <body>
