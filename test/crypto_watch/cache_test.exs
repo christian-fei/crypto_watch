@@ -17,6 +17,6 @@ defmodule CryptoWatch.CacheTest do
     GenServer.cast(CryptoWatch.Cache, {:add_match, "BTC-EUR", match})
     {:ok, matches} = GenServer.call(CryptoWatch.Cache, {:get_matches, "BTC-EUR"})
 
-    assert matches = [match]
+    assert matches == [match]
   end
 end
