@@ -123,7 +123,9 @@ text {
   display: none;
 }
 
-
+body {
+  padding: 2em 1em;
+}
 
 .blink {
   animation: blink .75s ease;
@@ -137,4 +139,9 @@ text {
 
 h1, h2, h3, h4, h5, h5 {
   font-weight: bold;
+}
+
+.current-price {
+  font-size: 5em;
+  padding: 5rem 0;
 }

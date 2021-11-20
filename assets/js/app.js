@@ -120,7 +120,7 @@ matchesChannel.on("data", (message) => {
 
   if (Array.isArray(data)) {
     $ticker.innerHTML = `
-    <h1 class="blink">${data[0].price}</h1>
+    <h1 class="blink current-price">${data[0].price}</h1>
   `
 
     return data.forEach(renderMatch)
@@ -129,7 +129,7 @@ matchesChannel.on("data", (message) => {
 
   renderMatch(data)
   $ticker.innerHTML = `
-    <h1 class="blink">${data.price}</h1>
+    <h1 class="blink current-price">${data.price}</h1>
   `
 
   function renderMatch(data) {
