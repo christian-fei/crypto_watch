@@ -10,6 +10,9 @@ body {
   background: #111;
   color: white;
   font-size: 12px;
+  font-weight: bold;
+  /* font-family: monospace;
+  font-weight: 100; */
 }
 
 .matches {
@@ -41,8 +44,8 @@ body {
 }
 
 .level2-item {
-  margin-top: 4px;
-  margin-bottom: 4px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 .level2-item .time {
   font-size: 0.8em;
@@ -149,5 +152,13 @@ h1, h2, h3, h4, h5, h5 {
 
 .current-price {
   font-size: 5em;
-  padding: 5rem 0;
+  /* padding: 5rem 0; */
+}
+
+.pad {
+  padding: 3rem;
+}
+
+.tar {
+  text-align: right;
 }

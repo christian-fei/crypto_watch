@@ -1,6 +1,6 @@
 defmodule CryptoWatch.OrderBook do
   use GenServer
-  @loop_interval 2_000
+  @delay 100
 
   def start_link(_) do
     GenServer.start_link(__MODULE__, %{})
@@ -13,7 +13,7 @@ defmodule CryptoWatch.OrderBook do
   end
 
   def loop(product_id \\ "BTC-EUR") do
-    Process.send_after(self(), %{get_order_book: product_id}, @loop_interval)
+    Process.send_after(self(), %{get_order_book: product_id}, @delay)
   end
 
   @impl true

@@ -8,7 +8,20 @@ const $level2s = document.querySelector('.level2')
 const $orderbook = document.querySelector('.orderbook')
 const $ticker = document.querySelector('.ticker')
 const svg = d3.select('.orderbook-graph svg')
+const $toggleLevel2 = document.querySelector('#toggle-level2')
 
+const state = {
+  level2enabled: window.localStorage.getItem('level2enabled') === 'true'
+}
+$toggleLevel2.innerText = level2updatesText(state)
+
+$toggleLevel2.addEventListener('click', (event) => {
+  event.preventDefault()
+  state.level2enabled = !state.level2enabled
+  window.localStorage.setItem('level2enabled', '' + state.level2enabled)
+  $toggleLevel2.innerText = level2updatesText(state)
+})
+function level2updatesText(state = {}) { return state.level2enabled ? `disable l2 updates` : `enable l2 updates` }
 let matchesChannel = socket.channel("data:matches", {})
 matchesChannel.join()
   .receive("ok", resp => { console.log("matches channel joined successfully", resp) })
@@ -53,6 +66,7 @@ orderbookChannel.on("data", (message) => {
   `
 })
 level2Channel.on("data", (message) => {
+  if (!state.level2enabled) return
   const { data } = message
   if (Array.isArray(data)) debugger
 
