@@ -7,11 +7,25 @@ const $matches = document.querySelector('.matches')
 const $level2s = document.querySelector('.level2')
 const $orderbook = document.querySelector('.orderbook')
 const $ticker = document.querySelector('.ticker')
+const $orderbookSvg = document.querySelector('.orderbook-graph svg')
 const svg = d3.select('.orderbook-graph svg')
 const $toggleLevel2 = document.querySelector('#toggle-level2')
+const $changePair = document.querySelector('[name="pair"]')
+
+$changePair.addEventListener('change', (event) => {
+  event.preventDefault()
+  console.log('change pair', event.target.value)
+  state.productId = event.target.value
+  $orderbookSvg.innerHTML = ''
+  $orderbook.innerHTML = ''
+  $ticker.innerHTML = ''
+  $level2s.innerHTML = ''
+  $matches.innerHTML = ''
+})
 
 const state = {
-  level2enabled: window.localStorage.getItem('level2enabled') === 'true'
+  level2enabled: window.localStorage.getItem('level2enabled') === 'true',
+  productId: 'BTC-EUR'
 }
 $toggleLevel2.innerText = level2updatesText(state)
 
@@ -36,7 +50,8 @@ orderbookChannel.join()
   .receive("error", resp => { console.log("Unable to join order_book channel", resp) })
 
 orderbookChannel.on("data", (message) => {
-  const { data: orderbook } = message
+  const { order_book: orderbook, product_id } = message
+  if (product_id !== state.productId) return
 
   const spread = orderbook.asks[0][0] - orderbook.bids[0][0]
   const asks = orderbook.asks.slice(0, 10).reverse()
@@ -83,29 +98,32 @@ level2Channel.on("data", (message) => {
 
 })
 matchesChannel.on("data", (message) => {
-  const { data } = message
+  const { match, product_id } = message
+  if (product_id !== state.productId) return
 
-  if (Array.isArray(data)) {
+  // const { match } = message
+
+  if (Array.isArray(match)) {
     $ticker.innerHTML = `
-    <h1 class="blink current-price">${data[0].price}</h1>
+    <h1 class="blink current-price">${match[0].price}</h1>
   `
 
-    return data.forEach(renderMatch)
+    return match.forEach(renderMatch)
   }
-  if (!data.side) return
+  if (!match.side) return
 
-  renderMatch(data)
+  renderMatch(match)
   $ticker.innerHTML = `
-    <h1 class="blink current-price">${data.price}</h1>
+    <h1 class="blink current-price">${match.price}</h1>
   `
 
-  function renderMatch(data) {
+  function renderMatch(match) {
     const $match = document.createElement('div')
     $match.innerHTML = `
-      <div class="flex blink"><div>${data.side}</div> <div>${data.size}</div> <div>${data.price}</div></div>
+      <div class="flex blink"><div>${match.side}</div> <div>${match.size}</div> <div>${match.price}</div></div>
     `
 
-    $match.classList.add(data.side)
+    $match.classList.add(match.side)
     $match.classList.add('match')
     $matches.prepend($match)
 

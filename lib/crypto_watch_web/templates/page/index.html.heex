@@ -1,6 +1,13 @@
 <div class="flex">
   <div class="ticker">
   </div>
+  <div class="pad">
+    <div class="form-group">
+      <select name="pair" class="full-width-select">
+          <%= options_for_select(@pairs, "BTC-EUR") %>
+      </select>
+    </div>
+  </div>
   <div class="pad tar">
     <button id="toggle-level2">disable l2</button>
   </div>

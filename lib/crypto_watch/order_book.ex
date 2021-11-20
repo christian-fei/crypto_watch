@@ -26,7 +26,7 @@ defmodule CryptoWatch.OrderBook do
       case CryptoWatch.CoinbasePro.ApiClient.get_order_book(product_id) do
         {:ok, order_book} ->
           Map.put(order_books, product_id, order_book)
-          CryptoWatchWeb.DataChannel.broadcast_order_book(order_book)
+          CryptoWatchWeb.DataChannel.broadcast_order_book(order_book, product_id)
           GenServer.cast(CryptoWatch.Cache, {:update_order_book, product_id, order_book})
           order_books
 

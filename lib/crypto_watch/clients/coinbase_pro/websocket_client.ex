@@ -22,8 +22,8 @@ defmodule CryptoWatch.CoinbasePro.WebsocketClient do
       |> Jason.decode!(keys: :atoms)
 
     if data[:type] == "match" do
-      CryptoWatchWeb.DataChannel.broadcast_match(data)
-      GenServer.cast(CryptoWatch.Cache, {:add_match, "BTC-EUR", data})
+      CryptoWatchWeb.DataChannel.broadcast_match(data, data[:product_id])
+      GenServer.cast(CryptoWatch.Cache, {:add_match, data[:product_id], data})
     end
 
     if data[:type] == "l2update", do: CryptoWatchWeb.DataChannel.broadcast_level2(data)
