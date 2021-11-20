@@ -49,6 +49,4 @@ I added a `CryptoWatch.CoinbasePro.ApiClient` to contact the `api.pro.coinbase.c
 
 The updates are broadcasted to all clients via the websocket connection.
 
-Currently the clients cannot choose a currency pair to watch.
-
-This is a perfect candidate for a pull request :)
+The client can choose a currency pair, a filter is set for all incoming updates and only matching ones are updated on the UI.
