@@ -17,6 +17,8 @@ body {
 }
 .match {
   display: flex;
+  margin-top: 2px;
+  margin-bottom: 2px;
 }
 .match > * {
   flex: 1;
@@ -38,6 +40,10 @@ body {
   text-align: right;
 }
 
+.level2-item {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
 .level2-item .time {
   font-size: 0.8em;
 }
