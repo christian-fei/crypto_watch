@@ -72,13 +72,9 @@ orderbookChannel.on("data", (message) => {
   const asks = orderbook.asks.slice(0, 10).reverse()
   const bids = orderbook.bids.slice(0, 10)
 
-  // {type, price, total}
+  // [type, price, total]
   let minAskPrice = Math.min(...orderbook.asks.map(a => +a[0]))
   let maxBidPrice = Math.max(...orderbook.bids.map(a => +a[0]))
-  console.log({
-    minAskPrice
-    , maxBidPrice
-  })
   let sumAsk = 0
   let sumBid = 0
   const orderbookGraphData = orderbook.asks.filter(a => +a[0] < minAskPrice + 1000) //.slice(0, 50)
