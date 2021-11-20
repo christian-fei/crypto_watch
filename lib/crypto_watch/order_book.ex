@@ -1,23 +1,27 @@
 defmodule CryptoWatch.OrderBook do
   use GenServer
-  @delay 100
+  @delay 1_000
 
-  def start_link(_) do
-    GenServer.start_link(__MODULE__, %{})
+  def start_link(products \\ ["BTC-EUR"]) do
+    GenServer.start_link(__MODULE__, products)
   end
 
-  @impl true
-  def init(_) do
-    loop("BTC-EUR")
+  @impl GenServer
+  def init(products \\ ["BTC-EUR"]) do
+    IO.inspect(products)
+    loop(products)
     {:ok, %{}}
   end
 
-  def loop(product_id \\ "BTC-EUR") do
-    Process.send_after(self(), %{get_order_book: product_id}, @delay)
+  def loop(products \\ ["BTC-EUR"]) do
+    products
+    |> Enum.map(&Process.send_after(self(), %{get_order_book: &1}, @delay))
   end
 
   @impl true
   def handle_info(%{get_order_book: product_id}, order_books) do
+    IO.puts("orderbook for " <> product_id)
+
     order_books =
       case CryptoWatch.CoinbasePro.ApiClient.get_order_book(product_id) do
         {:ok, order_book} ->
@@ -32,7 +36,7 @@ defmodule CryptoWatch.OrderBook do
           order_books
       end
 
-    loop(product_id)
+    loop([product_id])
     {:noreply, order_books}
   end
 
