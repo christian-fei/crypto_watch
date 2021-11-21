@@ -162,6 +162,9 @@ h1, h2, h3, h4, h5, h5 {
 .tar {
   text-align: right;
 }
+.tac {
+  text-align: center;
+}
 select {
   color :white;
 }
