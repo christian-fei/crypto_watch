@@ -1,9 +1,17 @@
 defmodule CryptoWatch.Cache do
   use GenServer
 
+  # client
+
+  def add_match(data) do
+    GenServer.cast(__MODULE__, {:add_match, data[:product_id], data})
+  end
+
   def start_link(opts \\ []) do
     GenServer.start_link(__MODULE__, :ok, opts)
   end
+
+  # server
 
   @impl GenServer
   def init(_) do

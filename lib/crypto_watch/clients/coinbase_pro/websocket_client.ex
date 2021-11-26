@@ -23,7 +23,7 @@ defmodule CryptoWatch.CoinbasePro.WebsocketClient do
 
     if data[:type] == "match" do
       CryptoWatchWeb.DataChannel.broadcast_match(data, data[:product_id])
-      GenServer.cast(CryptoWatch.Cache, {:add_match, data[:product_id], data})
+      CryptoWatch.Cache.add_match(data)
     end
 
     if data[:type] == "l2update", do: CryptoWatchWeb.DataChannel.broadcast_level2(data)
