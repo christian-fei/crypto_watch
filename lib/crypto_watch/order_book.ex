@@ -20,8 +20,6 @@ defmodule CryptoWatch.OrderBook do
 
   @impl true
   def handle_info(%{get_order_book: product_id}, order_books) do
-    IO.puts("orderbook for " <> product_id)
-
     order_books =
       case CryptoWatch.CoinbasePro.ApiClient.get_order_book(product_id) do
         {:ok, order_book} ->
