@@ -1,0 +1,28 @@
+<div class="flex">
+  <div class="ticker">
+  </div>
+</div>
+
+<div class="flex">
+  <div>
+    <div class="orderbook"></div>
+  </div>
+  <div class="matches-container">
+    <div class="matches">
+      <%= for match <- @matches do %>
+        <div class={"match #{match.side}"}>
+        <%= match.price %>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+  <div class="level2-container">
+    <div class="level2"></div>
+  </div>
+</div>
+
+<div class="orderbook-graph">
+  <svg></svg>
+</div>
+
