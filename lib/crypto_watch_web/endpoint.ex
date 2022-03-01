@@ -46,4 +46,7 @@ defmodule CryptoWatchWeb.Endpoint do
   socket "/socket", CryptoWatchWeb.DataSocket,
     websocket: true,
     longpoll: false
+  socket "/live", Phoenix.LiveView.Socket,
+    websocket: true,
+    longpoll: false
 end

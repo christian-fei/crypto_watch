@@ -8,7 +8,6 @@ defmodule CryptoWatch.OrderBook do
 
   @impl GenServer
   def init(products \\ ["BTC-EUR"]) do
-    IO.inspect(products)
     loop(products)
     {:ok, %{}}
   end

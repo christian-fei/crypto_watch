@@ -26,7 +26,7 @@ defmodule CryptoWatch.Cache do
 
   @impl GenServer
   def handle_call({:get_order_book, name}, _from, state) do
-    {:reply, Map.fetch(state.order_books, name), state}
+    {:reply, get_in(state, [:order_books, name]), state}
   end
 
   @impl GenServer
@@ -36,7 +36,7 @@ defmodule CryptoWatch.Cache do
 
   @impl GenServer
   def handle_cast({:update_order_book, name, order_book}, state) do
-    state = Map.merge(state, %{order_books: Map.put(%{}, name, order_book)})
+    state = put_in(state, [:order_books, name], order_book)
     {:noreply, state}
   end
 
@@ -49,7 +49,7 @@ defmodule CryptoWatch.Cache do
   @impl GenServer
   def handle_cast({:add_match, name, match}, state) do
     updated_matches =
-      Map.put(%{}, name, (Map.get(state.matches, name, []) ++ [match]) |> Enum.take(500))
+      Map.put(%{}, name, (Map.get(state.matches, name, []) ++ [match]) |> Enum.take(100))
 
     state =
       Map.merge(

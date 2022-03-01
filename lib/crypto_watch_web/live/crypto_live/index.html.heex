@@ -5,7 +5,15 @@
 
 <div class="flex">
   <div>
-    <div class="orderbook"></div>
+    <div class="orderbook">
+    <%= for o <- Map.get(@orderbook, "asks") |> Enum.slice(0..10) do %>
+      <div class="orderbook-item orderbook-buy"><%= Enum.at(o, 1) %> <%= Enum.at(o, 0) %></div>
+    <% end %>
+    <div class="orderbook-spread"></div>
+    <%= for o <- Map.get(@orderbook, "bids") |> Enum.slice(0..10) do %>
+      <div class="orderbook-item orderbook-sell"><%= Enum.at(o, 1) %> <%= Enum.at(o, 0) %></div>
+    <% end %>
+    </div>
   </div>
   <div class="matches-container">
     <div class="matches">
@@ -15,7 +23,6 @@
         </div>
       <% end %>
     </div>
-
   </div>
   <div class="level2-container">
     <div class="level2"></div>
