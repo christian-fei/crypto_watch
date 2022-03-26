@@ -6,46 +6,41 @@ defmodule CryptoWatchWeb.CryptoLive.Index do
   @impl true
   def mount(_params, _session, socket) do
     product_id = "BTC-EUR"
-    if connected?(socket), do: Process.send_after(self(), :tick, 500)
+    if connected?(socket) do
+      Phoenix.PubSub.subscribe(CryptoWatch.PubSub, "orderbook-#{product_id}")
+      Phoenix.PubSub.subscribe(CryptoWatch.PubSub, "matches-#{product_id}")
+      Phoenix.PubSub.subscribe(CryptoWatch.PubSub, "level2-#{product_id}")
+    end
 
     {:ok,
      socket
      |> assign(:product_id, product_id)
-     |> assign(:matches, matches(product_id))
-     |> assign(:orderbook, orderbook(product_id))}
+     |> assign(:matches, [])
+     |> assign(:level2, [])
+     |> assign(:orderbook, %{"asks" => [], "bids" => []})}
   end
 
   @impl true
-  def handle_params(%{} = params, _url, socket) do
+  def handle_params(%{} = _params, _url, socket) do
     {:noreply, socket}
   end
 
   @impl true
-  def handle_info(:tick, socket) do
-    Process.send_after(self(), :tick, 500)
-
+  def handle_info(%{orderbook: orderbook}, socket) do
     {:noreply,
      socket
-     |> assign(:matches, matches("BTC-EUR"))
-     |> assign(:orderbook, orderbook("BTC-EUR"))}
+     |> assign(:orderbook, orderbook)}
   end
-
-  defp matches(product_id) do
-    case GenServer.call(CryptoWatch.Cache, {:get_matches, product_id}) do
-      {:ok, matches} ->
-        matches
-
-      :error ->
-        []
-    end
+  @impl true
+  def handle_info(%{match: match}, socket) do
+    {:noreply,
+     socket
+     |> update(:matches, fn matches -> matches ++ [match] end)}
   end
-
-  defp orderbook(product_id) do
-    case GenServer.call(CryptoWatch.Cache, {:get_order_book, product_id}) do
-      :error ->
-        %{"asks" => [], "bids" => []}
-      order_book ->
-        order_book
-    end
+  @impl true
+  def handle_info(%{level2: level2}, socket) do
+    {:noreply,
+     socket
+     |> update(:level2, fn l2 -> [level2] ++ l2 |> Enum.slice(0..50) end)}
   end
 end

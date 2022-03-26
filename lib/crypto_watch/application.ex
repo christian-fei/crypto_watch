@@ -11,9 +11,9 @@ defmodule CryptoWatch.Application do
       # Start the Telemetry supervisor
       CryptoWatchWeb.Telemetry,
       # Start the PubSub system
-      {Phoenix.PubSub, [name: CryptoWatch.PubSub, adapter: Phoenix.PubSub.PG2]},
-      {CryptoWatch.CoinbasePro.WebsocketClient, ["BTC-EUR", "ETH-EUR", "LTC-EUR"]},
-      {CryptoWatch.OrderBook, ["BTC-EUR", "ETH-EUR", "LTC-EUR"]},
+      {Phoenix.PubSub, [name: CryptoWatch.PubSub]},
+      {CryptoWatch.CoinbasePro.WebsocketClient, ["BTC-EUR"]},
+      {CryptoWatch.OrderBook, ["BTC-EUR"]},
       CryptoWatch.Cache,
       # Start the Endpoint (http/https)
       CryptoWatchWeb.Endpoint

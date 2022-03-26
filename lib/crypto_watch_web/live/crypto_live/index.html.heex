@@ -25,7 +25,11 @@
     </div>
   </div>
   <div class="level2-container">
-    <div class="level2"></div>
+    <div class="level2">
+      <%= for l2 <- @level2 do %>
+        <div class={"level2-item #{l2.changes |> Enum.at(0) |> Enum.at(0)}"}><%= l2.changes |> Enum.at(0) |> Enum.at(0) %> <%= l2.changes |> Enum.at(0) |> Enum.at(1) %> <%= l2.changes |> Enum.at(0) |> Enum.at(2) %></div>
+      <% end %>
+    </div>
   </div>
 </div>
 

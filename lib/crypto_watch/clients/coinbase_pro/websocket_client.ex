@@ -22,11 +22,13 @@ defmodule CryptoWatch.CoinbasePro.WebsocketClient do
       |> Jason.decode!(keys: :atoms)
 
     if data[:type] == "match" do
-      CryptoWatchWeb.DataChannel.broadcast_match(data, data[:product_id])
       CryptoWatch.Cache.add_match(data)
+      Phoenix.PubSub.broadcast(CryptoWatch.PubSub, "matches-#{data[:product_id]}", %{match: data})
     end
 
-    if data[:type] == "l2update", do: CryptoWatchWeb.DataChannel.broadcast_level2(data)
+    if data[:type] == "l2update" do
+      Phoenix.PubSub.broadcast(CryptoWatch.PubSub, "level2-BTC-EUR", %{level2: data})
+    end
 
     {:ok, state}
   end
