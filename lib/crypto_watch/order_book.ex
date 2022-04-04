@@ -25,6 +25,7 @@ defmodule CryptoWatch.OrderBook do
           Map.put(order_books, product_id, order_book)
           GenServer.cast(CryptoWatch.Cache, {:update_order_book, product_id, order_book})
           Phoenix.PubSub.broadcast(CryptoWatch.PubSub, "orderbook-#{product_id}", %{orderbook: order_book})
+          CryptoWatchWeb.DataChannel.broadcast_order_book(order_book, product_id)
           order_books
 
         {:error, reason} ->

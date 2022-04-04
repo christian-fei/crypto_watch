@@ -48,11 +48,8 @@ defmodule CryptoWatchWeb.DataChannel do
     case GenServer.call(CryptoWatch.Cache, {:get_order_book, product_id}) do
       {:ok, order_book} ->
         push(socket, "data", %{order_book: order_book, product_id: product_id})
-
-      :error ->
-        IO.puts("error getting order book " <> product_id)
+      {:error, e} -> IO.puts("error #{inspect(e)}")
     end
-
     {:noreply, socket}
   end
 

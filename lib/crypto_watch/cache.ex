@@ -26,7 +26,7 @@ defmodule CryptoWatch.Cache do
 
   @impl GenServer
   def handle_call({:get_order_book, name}, _from, state) do
-    {:reply, get_in(state, [:order_books, name]), state}
+    {:reply, Map.fetch(state.order_books, name), state}
   end
 
   @impl GenServer

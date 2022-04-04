@@ -41,6 +41,6 @@ defmodule CryptoWatchWeb.CryptoLive.Index do
   def handle_info(%{level2: level2}, socket) do
     {:noreply,
      socket
-     |> update(:level2, fn l2 -> [level2] ++ l2 |> Enum.slice(0..50) end)}
+     |> update(:level2, fn l2 -> [level2] ++ l2 |> Enum.slice(0..20) end)}
   end
 end
