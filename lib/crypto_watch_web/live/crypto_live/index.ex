@@ -36,7 +36,7 @@ defmodule CryptoWatchWeb.CryptoLive.Index do
   def handle_info(%{match: match}, socket) do
     {:noreply,
      socket
-     |> update(:matches, fn matches -> [match] ++ matches end)
+     |> update(:matches, fn matches -> [match] ++ matches |> Enum.slice(0..20) end)
      |> assign(:ticker, match)
     }
   end
