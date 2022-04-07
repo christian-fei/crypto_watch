@@ -1,5 +1,6 @@
 <div class="flex">
   <div class="ticker">
+    <%= @ticker.price %>
   </div>
 </div>
 
@@ -19,7 +20,7 @@
     <div class="matches">
       <%= for match <- @matches |> Enum.slice(0..20) do %>
         <div class={"match #{match.side}"}>
-        <%= match.price %>
+          <div class="flex blink"><div><%= match.side %></div> <div><%= match.size %></div> <div><%= match.price %></div></div>
         </div>
       <% end %>
     </div>

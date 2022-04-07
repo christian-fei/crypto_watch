@@ -17,6 +17,7 @@ defmodule CryptoWatchWeb.CryptoLive.Index do
      |> assign(:product_id, product_id)
      |> assign(:matches, [])
      |> assign(:level2, [])
+     |> assign(:ticker, %{price: 0})
      |> assign(:orderbook, %{"asks" => [], "bids" => []})}
   end
 
@@ -35,7 +36,9 @@ defmodule CryptoWatchWeb.CryptoLive.Index do
   def handle_info(%{match: match}, socket) do
     {:noreply,
      socket
-     |> update(:matches, fn matches -> matches ++ [match] end)}
+     |> update(:matches, fn matches -> [match] ++ matches end)
+     |> assign(:ticker, match)
+    }
   end
   @impl true
   def handle_info(%{level2: level2}, socket) do
