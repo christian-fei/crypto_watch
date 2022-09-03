@@ -1,7 +1,5 @@
 defmodule CryptoWatchWeb.CryptoLive.Index do
   use Phoenix.LiveView
-  # use CryptoWatchWeb, :live_view
-
 
   @impl true
   def mount(_params, _session, socket) do
@@ -36,7 +34,7 @@ defmodule CryptoWatchWeb.CryptoLive.Index do
   def handle_info(%{match: match}, socket) do
     {:noreply,
      socket
-     |> update(:matches, fn matches -> [match] ++ matches |> Enum.slice(0..20) end)
+     |> update(:matches, fn matches -> ([match] ++ matches) |> Enum.slice(0..20) end)
      |> assign(:ticker, match)
     }
   end
@@ -44,6 +42,6 @@ defmodule CryptoWatchWeb.CryptoLive.Index do
   def handle_info(%{level2: level2}, socket) do
     {:noreply,
      socket
-     |> update(:level2, fn l2 -> [level2] ++ l2 |> Enum.slice(0..20) end)}
+     |> update(:level2, fn l2 -> ([level2] ++ l2) |> Enum.slice(0..20) end)}
   end
 end

@@ -14,8 +14,12 @@ let liveSocket = new LiveSocket('/live', Socket, {
 })
 liveSocket.connect()
 
+const d3$tooltip = d3.select('.orderbook-graph').append('div')
+  .attr('class', 'orderbook-visualisation-tooltip')
+  .style('width', '200px')
+  .style('opacity', 0)
+  .html('');
 
-const $orderbook = document.querySelector('.orderbook')
 const svg = d3.select('.orderbook-graph svg')
 
 let orderbookChannel = socket.channel("data:order_book", {})
@@ -75,15 +79,6 @@ function draw(unsortedData, target, d3 = window.d3) {
     .attr('class', 'axis axis--y')
     .call(d3.axisLeft(y));
 
-  // // Define the div for the tooltip
-  // const tooltip = d3.select('body').append('div')
-  //   .attr('class', 'orderbook-visualisation-tooltip')
-  //   .style('position', 'absolute')
-  //   .style('top', `${target.node().parentNode.offsetTop}px`)
-  //   .style('left', `${(target.node().parentNode.offsetLeft + margin.left + (width / 2)) - 100}px`)
-  //   .style('width', '200px')
-  //   .style('opacity', 0)
-  //   .html('');
 
   g.selectAll('.bar')
     .data(data)
@@ -105,23 +100,23 @@ function draw(unsortedData, target, d3 = window.d3) {
       return x.range()[1] - x(d.price);
     })
     .attr('height', d => height - y(d.total))
-  // .on('mouseover', (d) => {
-  //   tooltip.transition()
-  //     .duration(500)
-  //     .style('opacity', 1);
+  .on('mouseover', (d) => {
+    d3$tooltip.transition()
+      .duration(100)
+      .style('opacity', 1);
 
-  //   let html = '<table>';
+    let html = '<table>';
 
-  //   Object.keys(d).forEach((key) => {
-  //     html += `<tr><td><b>${key}</b></td><td>${d[key]}</td></tr>`;
-  //   });
+    Object.keys(d).forEach((key) => {
+      html += `<tr><td style="width: 50px;"><b>${key}</b></td><td>${d[key]}</td></tr>`;
+    });
 
-  //   html += '</table>';
+    html += '</table>';
 
-  //   tooltip.html(html);
-  // })
-  // .on('mouseout', () =>
-  //   tooltip.transition().duration(500).style('opacity', 0),
-  // );
+    d3$tooltip.html(html);
+  })
+  .on('mouseout', () =>
+    d3$tooltip.transition().duration(500).style('opacity', 0),
+  );
 };
 

@@ -1,6 +1,6 @@
 <div class="flex">
-  <div class="ticker">
-    <%= @ticker.price %>
+  <div class="ticker current-price blink">
+    <%= if @ticker.price > 0, do: @ticker.price, else: "..."  %>
   </div>
 </div>
 
@@ -37,4 +37,3 @@
 <div class="orderbook-graph" phx-update="ignore">
   <svg id="chart"></svg>
 </div>
-
